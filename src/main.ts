@@ -1,5 +1,5 @@
 import { app, BrowserWindow } from 'electron';
-import isDev from 'electron-is-dev'; // New Import
+import isDev from 'electron-is-dev';
 
 const createWindow = (): void => {
     let win = new BrowserWindow({
