@@ -16,9 +16,9 @@ const createWindow = (): void => {
     });
     win.loadURL(
         isEnvDevelopment
-            ? 'http://localhost:9000'
+            ? 'http://localhost:9090'
             : `file://${app.getAppPath()}/index.html`,
-    );
+    ).finally(() => { /* no action */ });
 }
 
 app.on('ready', createWindow);

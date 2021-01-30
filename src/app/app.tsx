@@ -1,12 +1,18 @@
 import React from 'react';
 import { MyComponent } from './MyComponent';
+import { MenubarTop } from './MenuBar';
+
 
 const App = () => {
     return (
-        <div className="app">
-            <h1>I'm React running in Electron App </h1>
-            <MyComponent />
-        </div>
+        <>
+            <MenubarTop />
+            <div className="app p-grid">
+                <div className="p-col">1</div>
+                <div className="p-col">2</div>
+                <div className="p-col"> <MyComponent /></div>
+            </div>
+        </>
     );
 }
 
