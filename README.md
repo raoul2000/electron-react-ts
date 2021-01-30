@@ -6,24 +6,30 @@ Electron + React + Typescript = my-app
 
 ### developpement
 
-- starts electron and loads the React app build in *developpement* mode from the webpack server (at http:///localhost:9000) into the renderer process
+- starts electron and loads the React app build in *developpement* mode from the webpack server (at http:///localhost:9090) into the renderer process
 ``` 
 npm start
 ```
 
-- starts the webpack server to serve the React app built in *developpement* mode into a browser (at http://localhost:9000)
+- starts the webpack server to serve the React app built in *developpement* mode into a browser (at http://localhost:9090)
 ``` 
 npm react:serve
 ```
 
+To Run the React app in a web browser only at http://localhost:9000 :
+``` 
+npm react:serve:web
+```
+
+
 ### production
 - build the Electron *main* and *renderer* process in *production* mode into the `./dist` folder
 ``` 
-npm build
+npm run build
 ```
 Once the complete app is built (using `npm run buil`), package the Electron app for Windows platform with :
 ``` 
-npm build:win
+npm run build:win
 ```
 
 ## Links
