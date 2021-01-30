@@ -3,6 +3,6 @@
         "src/main.ts",
         "src/electron/*"
     ],
-    "exec": "webpack --config ./webpack.electron.js && electron ./dist/main.js",
+    "exec": "cross-env NODE_ENV=development webpack --config ./webpack.electron.js && electron ./dist/main.js",
     "ext": "ts"
 }

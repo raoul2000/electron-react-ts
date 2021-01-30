@@ -1,11 +1,14 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
+const isEnvProduction = process.env.NODE_ENV === 'production';
+const isEnvDevelopment = process.env.NODE_ENV === 'development';
+
 module.exports = {
-    mode: 'development',
+    mode: isEnvProduction ? 'production' : 'development',
     entry: './src/renderer.tsx',
     target: 'electron-renderer',
-    devtool: 'source-map',
+    devtool: isEnvDevelopment ? 'inline-source-map' : false,
     devServer: {
         contentBase: path.join(__dirname, 'dist/renderer.js'),
         compress: true,

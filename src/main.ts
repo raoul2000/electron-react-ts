@@ -1,5 +1,10 @@
 import { app, BrowserWindow } from 'electron';
-import isDev from 'electron-is-dev';
+
+const isEnvProduction = process.env.NODE_ENV === 'production';
+const isEnvDevelopment = process.env.NODE_ENV === 'development';
+
+console.log(`isEnvProduction = ${isEnvProduction} - isEnvDevelopment = ${isEnvDevelopment}`);
+
 
 const createWindow = (): void => {
     let win = new BrowserWindow({
@@ -9,9 +14,8 @@ const createWindow = (): void => {
             nodeIntegration: true
         }
     });
-    console.log(isDev);
     win.loadURL(
-        isDev
+        isEnvDevelopment
             ? 'http://localhost:9000'
             : `file://${app.getAppPath()}/index.html`,
     );
