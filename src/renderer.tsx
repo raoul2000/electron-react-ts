@@ -7,7 +7,7 @@ import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/bootstrap4-light-blue/theme.css'
 
-import '@/app/app.css'
+import '@/app/style.scss'
 
 import App from '@/app/app';
 

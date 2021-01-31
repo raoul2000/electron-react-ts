@@ -29,8 +29,12 @@ module.exports = {
                 use: [{ loader: 'ts-loader' }]
             },
             {
-                test: /\.(scss|css)$/,
+                test: /\.(css)$/,
                 use: ['style-loader', 'css-loader'],
+            },
+            {
+                test: /\.(scss)$/,
+                use: ['style-loader', 'css-loader', "sass-loader"],
             },
             {
                 test: /\.(woff(2)?|ttf|eot)$/,

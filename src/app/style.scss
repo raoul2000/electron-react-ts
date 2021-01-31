@@ -1,0 +1,96 @@
+$header-height: 30px;
+$footer-height: 30px;
+$main-margin: 10px;
+
+
+html, body {
+    margin: 0;
+    padding:0;
+    font-size: 13px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.app {
+    display: flex;
+
+    flex-direction: column;
+    header {
+        height: $header-height;
+        background-color: aqua;
+    }
+
+    main {
+        height: calc( 100vh - #{$header-height + $footer-height + $main-margin*2});
+        background-color: tan;
+        margin: $main-margin;
+
+        display: flex;
+        flex-wrap: nowrap;
+
+        .p-scrollpanel-wrapper {
+            border-right: 9px solid #ededed;
+        }
+        
+        .p-scrollpanel-bar {
+            background-color: #c4c4c4;
+            opacity: 1;
+            transition: background-color .3s;
+        }
+        
+        .p-scrollpanel-bar:hover {
+            background-color: #999999;
+        }        
+    }
+
+    main > {
+        div {
+            height: 100%;
+            /* padding :0.5rem */;
+            background-color: rgb(242, 242, 242);
+        }
+        .column-1 {
+            flex: 0 0 auto;
+            width:20%;
+            min-width: 10rem;
+            max-width: 15rem;
+
+            ul {
+                list-style-type: none;
+                padding: 0;
+                margin: 0; 
+                li {
+                    display:block;
+                    cursor: pointer;
+                    padding: 0.3rem;
+                    &:hover {
+                        background-color: rgb(203, 208, 255);
+                    }
+                    div.source-name {
+                        color: rgb(10, 43, 43);
+                    }
+                }
+            }
+        }
+        .column-2 {
+            flex: 0 0 auto;
+            width:25%;
+            min-width: 15rem;
+            max-width: 20rem;
+        }
+        .column-3 {
+            flex-grow: 1;
+        }
+    } 
+    footer {
+        height: $footer-height;
+        background-color: aquamarine;
+    }
+}
+
+.truncate-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
