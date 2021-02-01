@@ -1,7 +1,7 @@
 import React from 'react';
 import { Menubar } from 'primereact/menubar';
 
-import logo from  '@/app/images/logo.png';
+import logo from '@/app/images/logo.png';
 
 export const MenubarTop = () => {
     const items = [

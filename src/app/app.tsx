@@ -26,7 +26,7 @@ const App = () => {
             <main >
                 <div className="column-1" >
                     <ScrollPanel style={{ width: '100%', height: '100%' }}>
-                    <ul>
+                        <ul>
                             {
                                 sources.map(source => (
                                     <li>
