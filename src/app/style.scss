@@ -101,7 +101,13 @@ html, body {
 
             article {
                 padding: 1rem;
-
+                figure {
+                    text-align: center;
+                    img {
+                        max-height: 400px;
+                        max-width: 100%;
+                    }
+                }
                 header,
                 footer {
                     background-color: transparent;

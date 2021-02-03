@@ -56,6 +56,10 @@ const App = () => {
                             <header>
                                 <h1>This is the main Title</h1>
                             </header>
+                            <figure>
+                                <img src="https://via.placeholder.com/500" alt=""/>
+                                <figcaption>An elephant at sunset</figcaption>
+                            </figure>
                             <p>
                                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptates corrupti deserunt eius aperiam, ipsa dolorum aspernatur voluptatum ducimus, in eos eum nobis ipsam! Aut, error. Iste ipsa quidem iusto ipsum?
                                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptates corrupti deserunt eius aperiam, ipsa dolorum aspernatur voluptatum ducimus, in eos eum nobis ipsam! Aut, error. Iste ipsa quidem iusto ipsum?
