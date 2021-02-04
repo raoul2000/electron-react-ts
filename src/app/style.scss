@@ -18,12 +18,12 @@ html, body {
     flex-direction: column;
     header {
         height: $header-height;
-        background-color: aqua;
+        padding-left: 1rem;
+        font-size: 1.6rem;
     }
 
     main {
         height: calc( 100vh - #{$header-height + $footer-height + $main-margin*2});
-        background-color: tan;
         margin: $main-margin;
 
         display: flex;
@@ -47,8 +47,6 @@ html, body {
     main > {
         div {
             height: 100%;
-            /* padding :0.5rem */;
-            background-color: rgb(242, 242, 242);
         }
         .column-1 {
             flex: 0 0 auto;
@@ -65,7 +63,7 @@ html, body {
                     cursor: pointer;
                     padding: 0.3rem;
                     &:hover {
-                        background-color: rgb(203, 208, 255);
+                        background-color: #e8eaff;
                     }
                     div.source-name {
                         color: rgb(10, 43, 43);
@@ -117,7 +115,11 @@ html, body {
     } 
     footer {
         height: $footer-height;
-        background-color: aquamarine;
+        border-top: 1px solid #dbdbdb;
+        font-size: 1rem;
+        padding-left: 1rem;
+        padding-top: 0.3rem;
+        color: #606060;
     }
 }
 /* truncate long text */

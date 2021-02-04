@@ -20,7 +20,7 @@ const App = () => {
     const header: JSX.Element = <div>header</div>;
     return (
         <div className="app">
-            <header>
+            <header className="p-shadow-1">
                 header
             </header>
             <main >
@@ -74,7 +74,7 @@ const App = () => {
                     </ScrollPanel>
                 </div>
             </main>
-            <footer>
+            <footer className="p-shadow-1">
                 footer
             </footer>
         </div>
