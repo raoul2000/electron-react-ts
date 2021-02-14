@@ -13,12 +13,12 @@ npm start
 
 - starts the webpack server to serve the React app built in *developpement* mode into a browser (at http://localhost:9090)
 ``` 
-npm react:serve
+npm run react:serve
 ```
 
 To Run the React app in a web browser only at http://localhost:9000 :
 ``` 
-npm react:serve:web
+npm run react:serve:web
 ```
 
 
