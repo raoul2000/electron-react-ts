@@ -1,8 +1,8 @@
-import { atom } from 'recoil'
+import { atom, selector } from 'recoil'
 
 type Source = {
     id: string;
-    name:string;
+    name: string;
 };
 export const sourceListState = atom<Source[]>({
     key: 'sourceListState',
@@ -27,8 +27,17 @@ export const selectedSourceIdState = atom<string>({
     default: ''
 });
 
+export const selectedSourceNameSelector = selector<string | undefined>({
+    key: 'selectedSourceNameSelector',
+    get: ({ get }) => {
+        const selectedSourceId = get(selectedSourceIdState);
+        const sourceList = get(sourceListState);
+        return sourceList.find(source => source.id === selectedSourceId)?.name;
+    },
+});
+
 export type SourceItem = {
-    id:string;
+    id: string;
     title: string;
 };
 
@@ -42,16 +51,16 @@ export const sourceItemListState = atom<SourceItemList[]>({
     default: [
         {
             sourceId: '1',
-            items: [ {id: '1', title: "1-item - 1"}, {id: '2', title: '1-title-2'}]
-        },  
+            items: [{ id: '1', title: "1-item - 1" }, { id: '2', title: '1-title-2' }]
+        },
         {
             sourceId: '2',
-            items: [ {id: '1', title: "2-item - 1"}, {id: '2', title: '2-title-2'}]
-        },  
+            items: [{ id: '1', title: "2-item - 1" }, { id: '2', title: '2-title-2' }]
+        },
         {
             sourceId: '3',
-            items: [ {id: '1', title: "3-item - 1"}, {id: '2', title: '3-title-2'}]
-        },  
+            items: [{ id: '1', title: "3-item - 1" }, { id: '2', title: '3-title-2' }]
+        },
     ]
 });
 
@@ -59,3 +68,11 @@ export const selectedSourceItemState = atom<SourceItem | null>({
     key: 'selectedSourceItemIdState',
     default: null
 });
+
+export const selectedSourceItemTitleSelector = selector<string | undefined>({
+    key: 'selectedSourceItemTitleSelector',
+    get: ({ get }) => {
+        const selectedSourceItem = get(selectedSourceItemState);
+        return selectedSourceItem?.title;
+    },
+})

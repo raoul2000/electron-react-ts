@@ -28,10 +28,13 @@ const createSources = (count: number) => {
 }
 const sources = createSources(50);
 
+const fetchInitialState = ():Promise<string[]> => Promise.resolve(['a','b','c']);
 const App = () => {
     const header: JSX.Element = <div>header</div>;
+
     return (
-        <RecoilRoot>
+        <RecoilRoot 
+            initializeState={fetchInitialState}>
             <div className="app">
                 <MainHeader />
                 <main >
