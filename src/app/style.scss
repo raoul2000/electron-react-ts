@@ -38,16 +38,19 @@ html, body {
             opacity: 1;
             transition: background-color .3s;
         }
-        
         .p-scrollpanel-bar:hover {
             background-color: #999999;
-        }        
+        }       
+        .selected {
+            background-color: #c5bbff;
+        } 
     }
 
     main > {
         div {
             height: 100%;
         }
+
         .column-1 {
             flex: 0 0 auto;
             width:20%;

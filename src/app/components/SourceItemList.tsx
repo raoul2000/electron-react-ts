@@ -29,7 +29,10 @@ export const SourceItemList: React.FC<{}> = (): JSX.Element => {
                 <ul>
                     {
                         selectedSourceItemList.items.map(sourceItem => (
-                            <li key={`${selectedSourceItemList.sourceId}-${sourceItem.id}`}>
+                            <li 
+                                key={`${selectedSourceItemList.sourceId}-${sourceItem.id}`}
+                                className={ selectedSourceItem?.id === sourceItem.id ? 'selected' : ''}
+                                >
                                 <div 
                                     className="source-name truncate-text"
                                     onClick={() => handleSourceItemSelection(sourceItem)}
