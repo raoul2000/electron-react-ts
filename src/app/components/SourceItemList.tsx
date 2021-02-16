@@ -34,7 +34,7 @@ export const SourceItemList: React.FC<{}> = (): JSX.Element => {
                                 className={ selectedSourceItem?.id === sourceItem.id ? 'selected' : ''}
                                 >
                                 <div 
-                                    className="source-name truncate-text"
+                                    className={`source-name truncate-text ${}`}
                                     onClick={() => handleSourceItemSelection(sourceItem)}
                                 >
                                     {sourceItem.title}
