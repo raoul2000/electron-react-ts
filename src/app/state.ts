@@ -6,20 +6,7 @@ type Source = {
 };
 export const sourceListState = atom<Source[]>({
     key: 'sourceListState',
-    default: [
-        {
-            id: '1',
-            name: 'source 1'
-        },
-        {
-            id: '2',
-            name: 'source 2'
-        },
-        {
-            id: '3',
-            name: 'source 3'
-        }
-    ]
+    default: []
 });
 
 export const selectedSourceIdState = atom<string>({

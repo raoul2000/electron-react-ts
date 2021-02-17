@@ -1,4 +1,4 @@
-$header-height: 30px;
+$header-height: 40px;
 $footer-height: 30px;
 $main-margin: 10px;
 
@@ -20,6 +20,9 @@ html, body {
         height: $header-height;
         padding-left: 1rem;
         font-size: 1.6rem;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
     }
 
     main {
@@ -126,6 +129,12 @@ html, body {
         padding-left: 1rem;
         padding-top: 0.3rem;
         color: #606060;
+    }
+    .dlg {
+        width: 50vw;
+        &.dlg-initialize p {
+            text-align: center;
+        }
     }
 }
 /* truncate long text */
