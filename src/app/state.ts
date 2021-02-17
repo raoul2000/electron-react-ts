@@ -62,4 +62,17 @@ export const selectedSourceItemTitleSelector = selector<string | undefined>({
         const selectedSourceItem = get(selectedSourceItemState);
         return selectedSourceItem?.title;
     },
-})
+});
+
+type BgTask = {
+    name: string;
+    idle: boolean;
+};
+
+export const bgTaskState = atom<BgTask>({
+    key: 'BgTaskState',
+    default: {
+        name: '',
+        idle: true
+    }
+});

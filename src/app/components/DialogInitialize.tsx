@@ -8,7 +8,7 @@ type Props = {
     onSuccess: () => void;
     onHide: () => void;
 }
-export const InitializeDialog: React.FC<Props> = ({ visible, onSuccess, onHide }): JSX.Element => {
+export const DialogInitialize: React.FC<Props> = ({ visible, onSuccess, onHide }): JSX.Element => {
     const [sourceList, setSourceList] = useRecoilState(sourceListState);
 
     useEffect(() => {

@@ -5,7 +5,8 @@ import {
 import { MainHeader } from './components/MainHeader';
 import { MainFooter } from './components/MainFooter';
 import { MainContent } from './components/MainContent';
-import { InitializeDialog } from './components/InitializeDialog';
+import { DialogInitialize } from './components/DialogInitialize';
+import { BgTaskRunner } from './components/BgTaskRunner';
 
 const createSources = (count: number) => {
     const sources: Array<{ name: string }> = [];
@@ -24,6 +25,7 @@ const App = () => {
 
     return (
         <RecoilRoot>
+            <BgTaskRunner />
             <div className="app">
                 {
                     initStatus === 'success'
@@ -34,7 +36,7 @@ const App = () => {
                         <MainFooter />
                     </>
                 }
-                <InitializeDialog
+                <DialogInitialize
                     visible={initStatus === 'pending'}
                     onSuccess={() => setInitStatus('success')}
                     onHide={() => setInitStatus('success')}

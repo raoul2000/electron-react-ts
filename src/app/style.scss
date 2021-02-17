@@ -1,4 +1,4 @@
-$header-height: 40px;
+$header-height: 50px;
 $footer-height: 30px;
 $main-margin: 10px;
 
@@ -19,10 +19,17 @@ html, body {
     header {
         height: $header-height;
         padding-left: 1rem;
+        padding-right: 1rem;
         font-size: 1.6rem;
         display: flex;
         flex-direction: row;
         align-items: center;
+
+        .actions {
+            display: flex;
+            flex-grow:1;
+            flex-direction: row-reverse;
+        }
     }
 
     main {
@@ -129,11 +136,26 @@ html, body {
         padding-left: 1rem;
         padding-top: 0.3rem;
         color: #606060;
+        display: flex;
+
+        &>div {
+            flex-grow: 1;
+        }
+        .bg-task-status {
+            color: #969696;
+        }
     }
     .dlg {
         width: 50vw;
         &.dlg-initialize p {
             text-align: center;
+        }
+        &.dlg-add-source  {
+            min-width:500px;
+            .p-field {
+                padding:2rem;
+                padding-bottom: 1rem;
+            }
         }
     }
 }
