@@ -15,7 +15,7 @@ export const BgTaskRunner: React.FC<{}> = ():JSX.Element => {
                 setBgTask({
                     name: '',
                     idle: true
-                })
+                });
                 
             }, 4000);
         }
