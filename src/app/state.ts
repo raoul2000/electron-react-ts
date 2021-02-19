@@ -1,9 +1,6 @@
 import { atom, selector } from 'recoil'
+import {Source, SourceItem, SourceItemList} from './types'
 
-type Source = {
-    id: string;
-    name: string;
-};
 export const sourceListState = atom<Source[]>({
     key: 'sourceListState',
     default: []
@@ -22,16 +19,6 @@ export const selectedSourceNameSelector = selector<string | undefined>({
         return sourceList.find(source => source.id === selectedSourceId)?.name;
     },
 });
-
-export type SourceItem = {
-    id: string;
-    title: string;
-};
-
-type SourceItemList = {
-    sourceId: string;
-    items: SourceItem[];
-};
 
 export const sourceItemListState = atom<SourceItemList[]>({
     key: 'sourceItemListState',

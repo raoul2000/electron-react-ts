@@ -1,7 +1,9 @@
 import { ScrollPanel } from 'primereact/components/scrollpanel/ScrollPanel';
 import React, { useEffect } from 'react';
 import { useRecoilValue, useRecoilState } from 'recoil';
-import { selectedSourceIdState, sourceItemListState, selectedSourceItemState, SourceItem } from '../state';
+import {SourceItem} from '../types';
+
+import { selectedSourceIdState, sourceItemListState, selectedSourceItemState } from '../state';
 
 export const SourceItemList: React.FC<{}> = (): JSX.Element => {
 

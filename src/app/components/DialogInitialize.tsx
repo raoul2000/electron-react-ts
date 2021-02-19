@@ -16,14 +16,17 @@ export const DialogInitialize: React.FC<Props> = ({ visible, onSuccess, onHide }
             setSourceList([
                 {
                     id: '1',
+                    url: '',
                     name: 'source 1'
                 },
                 {
                     id: '2',
+                    url: '',
                     name: 'source 2'
                 },
                 {
                     id: '3',
+                    url: '',
                     name: 'source 3'
                 }
             ]);

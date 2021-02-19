@@ -3,7 +3,10 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { bgTaskState } from '../state';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { parse } from '../lib/source-parser'
+import { sourceListState, sourceItemListState } from '../state';
+
 
 type Props = {
     visible: boolean;
@@ -14,9 +17,26 @@ export const DialogAddSource: React.FC<Props> = ({ visible, onHide }): JSX.Eleme
     const [bgTask, setBgTask] = useRecoilState(bgTaskState);
     const [url, setUrl] = useState<string>('https://www.lemonde.fr/rss/une.xml');
 
+    const [sourceList, setSourceList] = useRecoilState(sourceListState);
+    const [sourceItemList, setSourceItemList] = useRecoilState(sourceItemListState);
+
     const handleAddSource = () => {
-        setBgTask({name: url, idle: false});
+        setBgTask({ name: url, idle: false });
         onHide();
+        parse(url)
+            .then(result => {
+                console.log(result);
+                setSourceList(
+                    [...sourceList, result.source]
+                );
+                setSourceItemList([
+                    ...sourceItemList,
+                    {
+                        sourceId: result.source.id,
+                        items: result.sourceItems
+                    }
+                ])
+            });
     };
 
     const renderFooter = () => {
@@ -29,7 +49,7 @@ export const DialogAddSource: React.FC<Props> = ({ visible, onHide }): JSX.Eleme
             </div>
         );
     }
-    
+
     return (
         <Dialog
             header="Add Source"

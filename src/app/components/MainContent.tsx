@@ -16,8 +16,8 @@ export const MainContent: React.FC<{}> = (): JSX.Element => {
             <div className="column-3">
                 <ScrollPanel style={{ width: '100%', height: '100%' }}>
                     <SourceItem />
-                    <hr />
-                    <article>
+                    
+                    <article style={{display: 'none'}}>
                         <header>
                             <h1>This is the main Title !</h1>
                         </header>
