@@ -61,6 +61,9 @@
   },
   "dependencies": {
     "is-electron": "^2.2.0",
+    "nanoid": "^3.1.20",
+    "nedb": "^1.8.0",
+    "nedb-promises": "^4.1.1",
     "p-queue": "^6.6.2",
     "primeflex": "^2.0.0",
     "primeicons": "^4.1.0",

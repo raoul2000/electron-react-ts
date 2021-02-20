@@ -1,33 +1,79 @@
-import RssParser from 'rss-parser';
-import {Source, SourceItem, SourceItemList} from '../../types';
+import RssParser, { Item, Output } from 'rss-parser';
+import { ItemImage, Source, SourceItem, SourceItemList } from '../../types';
+import { nanoid } from 'nanoid'
 
-const parser = new RssParser({
+type CustomFeed = { foo: string };
+
+type MediaContentAttr = { 
+    url:string
+};
+type MediaContentDescription = {
+    '$' : { type: string },
+    '_': string
+}
+type MediaContent = {
+    '$': MediaContentAttr,
+    'media:description': MediaContentDescription[]
+}
+
+type CustomItem = {
+    "media:content":MediaContent,
+};
+
+type CustomRssDoc = CustomFeed & RssParser.Output<CustomItem>;
+type CustomRssItem = CustomItem & RssParser.Item;
+
+const parser: RssParser<CustomFeed, CustomItem> = new RssParser({
     customFields: {
-        item: [
-            ['media:content', 'media:content', 'media:credit', { keepArray: true }]
-        ]
-    }
+        feed: ['foo'],
+        item: ["media:content", { keepArray: true }]
+    },
 });
 
-type RssItem = {
-    guid: string;
-    title: string;
-    link: string;
-    content:string;
+const getItemId = (item: CustomRssItem): string => item.guid || nanoid();
+const getItemTitle = (item: CustomRssItem): string => item.title || 'no title';
+const getItemPubDate = (item: CustomRssItem): Date | undefined => {
+    try {
+        if(item.pubDate) {
+            return new Date(item.pubDate);
+        }
+    } catch (error) {}
+};
+const getImageLegend = (mediaContent: MediaContent): string | undefined => {
+    try {
+        return mediaContent['media:description'][0]._;
+    } catch (error) {}
 }
-const normalize = (rss:any):any => {
+
+const getItemImage = (item: CustomRssItem): ItemImage | void => {
+    try {
+        if (item['media:content']) {
+            const image:MediaContent = item['media:content'];
+            return {
+                url: image.$.url,
+                legend: getImageLegend(image)
+            };
+        }
+    } catch (error) { }
+    return;
+};
+
+
+const normalize = (url: string) => (rss: CustomRssDoc): any => {
     console.log(rss);
-    const source:Source = {
-        id: rss.feedUrl,
-        url:  rss.feedUrl,
-        name: rss.title
+    const source: Source = {
+        id: nanoid(),
+        url,
+        name: rss.title || 'no name'
     };
 
-    const sourceItems: SourceItem[] = rss.items.map( (item:RssItem)  => ({
-        id: item.guid,
-        title: item.title,
+    const sourceItems: SourceItem[] = rss.items.map((item: CustomRssItem) => ({
+        id: getItemId(item),
+        title: getItemTitle(item),
         link: item.link,
-        content: item.content
+        pudDate: getItemPubDate(item),
+        content: item.contentSnippet ,
+        image: getItemImage(item) || undefined
     }));
 
     return {
@@ -36,4 +82,4 @@ const normalize = (rss:any):any => {
     };
 }
 export const parse = (url: string): Promise<any> => parser.parseURL(url)
-    .then(normalize);
+    .then(normalize(url));

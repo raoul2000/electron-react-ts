@@ -6,7 +6,7 @@ import { bgTaskState } from '../state';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { parse } from '../lib/source-parser'
 import { sourceListState, sourceItemListState } from '../state';
-
+import { insertSource, findAllSources } from '../lib/store';
 
 type Props = {
     visible: boolean;
@@ -20,12 +20,17 @@ export const DialogAddSource: React.FC<Props> = ({ visible, onHide }): JSX.Eleme
     const [sourceList, setSourceList] = useRecoilState(sourceListState);
     const [sourceItemList, setSourceItemList] = useRecoilState(sourceItemListState);
 
+    findAllSources()
+        .then( result => {
+            console.log('findAllSources', result);
+        });
     const handleAddSource = () => {
         setBgTask({ name: url, idle: false });
         onHide();
         parse(url)
             .then(result => {
                 console.log(result);
+                insertSource(result.source);
                 setSourceList(
                     [...sourceList, result.source]
                 );
@@ -35,7 +40,8 @@ export const DialogAddSource: React.FC<Props> = ({ visible, onHide }): JSX.Eleme
                         sourceId: result.source.id,
                         items: result.sourceItems
                     }
-                ])
+                ]);
+                
             });
     };
 

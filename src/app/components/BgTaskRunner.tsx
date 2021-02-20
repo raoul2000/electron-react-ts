@@ -6,19 +6,19 @@ import { submitTask } from '../lib/task-runner';
 export const BgTaskRunner: React.FC<{}> = (): JSX.Element => {
     const [bgTask, setBgTask] = useRecoilState(bgTaskState);
 
-    console.log('BgTaskRunner');
+    //console.log('BgTaskRunner');
     useEffect(() => {
-        console.log('useEffect');
+        //console.log('useEffect');
         if (bgTask.name) {
-            submitTask()
-                .then(() => console.log('task done'))
-                .then( () => setBgTask({
+            submitTask({ id: 'taskId', payload: true })
+          //      .then(() => console.log('task done'))
+                .then(() => setBgTask({
                     name: '',
                     idle: true
                 }));
-        }      
+        }
     }, [bgTask]);
-return (
-    <></>
-);
+    return (
+        <></>
+    );
 }

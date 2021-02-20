@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Dialog } from 'primereact/dialog';
 import { useRecoilState } from 'recoil';
 import { sourceListState } from '../state';
+import { findAllSources } from '../lib/store';
 
 type Props = {
     visible: boolean;
@@ -12,26 +13,13 @@ export const DialogInitialize: React.FC<Props> = ({ visible, onSuccess, onHide }
     const [sourceList, setSourceList] = useRecoilState(sourceListState);
 
     useEffect(() => {
-        setTimeout(() => {
-            setSourceList([
-                {
-                    id: '1',
-                    url: '',
-                    name: 'source 1'
-                },
-                {
-                    id: '2',
-                    url: '',
-                    name: 'source 2'
-                },
-                {
-                    id: '3',
-                    url: '',
-                    name: 'source 3'
+        findAllSources()
+            .then(sources => {
+                if(sources) {
+                    setSourceList(sources);
                 }
-            ]);
-            onSuccess();
-        }, 2000);
+                onSuccess();
+            })
     }, []);
 
     return (

@@ -4,12 +4,17 @@ export type Source = {
     url: string;
     description?:string
 }
-
+export type ItemImage = {
+    url: string;
+    legend?:string;
+}
 export type SourceItem = {
     id: string;
     title: string;
     link?:string;
     content?:string;
+    image?: ItemImage;
+    pudDate?: Date
 }
 
 export type SourceItemList = {

@@ -1,6 +1,12 @@
 
 import PQueue from 'p-queue';
 
+
+export type Task = {
+    id:string;
+    payload: any
+};
+
 let taskQueue: PQueue;
 
 const getQueue = (): PQueue => {
@@ -15,7 +21,9 @@ export const initQueue = () => {
     }
 };
 
-export const submitTask = (): Promise<any> => getQueue().add(() => {
+//const findTaskRunner = (task:Task): Promise<TaskRunner> => 
+
+export const submitTask = (task: Task): Promise<any> => getQueue().add(() => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve(true);
