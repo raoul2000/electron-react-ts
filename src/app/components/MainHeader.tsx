@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import { Button } from 'primereact/button';
 import { DialogAddSource } from './DialogAddSource';
-import { bgTaskState } from '../state';
-import { useRecoilState, useRecoilValue } from 'recoil';
 
 export const MainHeader: React.FC<{}> = (): JSX.Element => {
     const [showAddSourceDialog, setShowAddSourceDialog] = useState<boolean>(false);
-    const bgTask = useRecoilValue(bgTaskState);
 
     return (
         <>
@@ -19,7 +16,6 @@ export const MainHeader: React.FC<{}> = (): JSX.Element => {
                         icon="pi pi-plus"
                         className="p-button-rounded"
                         onClick={() => setShowAddSourceDialog(true)}
-                        disabled={!bgTask.idle}
                     />
                 </div>
             </header>

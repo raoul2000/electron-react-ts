@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
-import { bgTaskState } from '../state';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { parse } from '../lib/source-parser'
 import { sourceListState, sourceItemListState } from '../state';
-import { insertSource, findAllSources } from '../lib/store';
+import { insertSource } from '../lib/store';
 
 type Props = {
     visible: boolean;
@@ -14,18 +13,11 @@ type Props = {
 }
 
 export const DialogAddSource: React.FC<Props> = ({ visible, onHide }): JSX.Element => {
-    const [bgTask, setBgTask] = useRecoilState(bgTaskState);
-    const [url, setUrl] = useState<string>('https://www.lemonde.fr/rss/une.xml');
-
+    const [url, setUrl] = useState<string>('');
     const [sourceList, setSourceList] = useRecoilState(sourceListState);
     const [sourceItemList, setSourceItemList] = useRecoilState(sourceItemListState);
 
-    findAllSources()
-        .then( result => {
-            console.log('findAllSources', result);
-        });
     const handleAddSource = () => {
-        setBgTask({ name: url, idle: false });
         onHide();
         parse(url)
             .then(result => {
@@ -41,7 +33,6 @@ export const DialogAddSource: React.FC<Props> = ({ visible, onHide }): JSX.Eleme
                         items: result.sourceItems
                     }
                 ]);
-                
             });
     };
 
@@ -54,7 +45,7 @@ export const DialogAddSource: React.FC<Props> = ({ visible, onHide }): JSX.Eleme
                     label="Add This Source" icon="pi pi-check" onClick={handleAddSource} autoFocus />
             </div>
         );
-    }
+    };
 
     return (
         <Dialog

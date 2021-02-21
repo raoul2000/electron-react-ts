@@ -1,17 +1,44 @@
 import React from 'react';
-import { useRecoilValue, useRecoilState } from 'recoil';
-import { selectedSourceItemState } from '../state';
-import {shell} from 'electron'
+import { ScrollPanel } from 'primereact/scrollpanel';
+import { useRecoilValue } from 'recoil';
+import { selectedSourceItemState, selectedSourceNameSelector } from '../state';
+import { shell } from 'electron';
+
+/**
+ * Displays details about the selected source item (in center column)
+ * User can read the complete item in external browser
+ */
 export const SourceItem: React.FC<{}> = (): JSX.Element => {
 
     const selectedSourceItem = useRecoilValue(selectedSourceItemState);
+    const selectedSourceName = useRecoilValue(selectedSourceNameSelector);
+
+    /**
+     * User clicked on the link to read the complete source item in an
+     * external browser.
+     * @param e Event
+     */
+    const handleReadInBrowser = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (selectedSourceItem && selectedSourceItem.link) {
+            shell.openExternal(selectedSourceItem.link);
+        }
+    }
 
     return (
-        <>
+        <ScrollPanel style={{ width: '100%', height: '100%' }}>
             {
                 selectedSourceItem
                 &&
                 <article>
+                    {
+                        selectedSourceName
+                        &&
+                        <div className="source-name">
+                            {selectedSourceName}
+                        </div>
+                    }
                     <header>
                         <h1>{selectedSourceItem.title}</h1>
                     </header>
@@ -27,7 +54,7 @@ export const SourceItem: React.FC<{}> = (): JSX.Element => {
                         {selectedSourceItem.content} </p>
                     <footer>
                         <p>
-                            Posté 
+                            Posté
                             {
                                 selectedSourceItem.pudDate
                                 &&
@@ -41,16 +68,12 @@ export const SourceItem: React.FC<{}> = (): JSX.Element => {
                                 selectedSourceItem.link
                                 &&
                                 <>
-                                &nbsp;<a 
-                                    href={selectedSourceItem.link} 
-                                    target="_blank" 
-                                    rel="noreferrer noopener"
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        e.stopPropagation();
-                                        selectedSourceItem.link && shell.openExternal(selectedSourceItem.link);
-                                    }}
-                                    title="ouvrir dans une nouvelle fenêtre">lire l&apos;article</a>
+                                    &nbsp;<a
+                                        href={selectedSourceItem.link}
+                                        target="_blank"
+                                        rel="noreferrer noopener"
+                                        onClick={handleReadInBrowser}
+                                        title="ouvrir dans une nouvelle fenêtre">lire l&apos;article</a>
                                 </>
                             }
                         </p>
@@ -58,6 +81,6 @@ export const SourceItem: React.FC<{}> = (): JSX.Element => {
                     </footer>
                 </article>
             }
-        </>
+        </ScrollPanel>
     );
 }

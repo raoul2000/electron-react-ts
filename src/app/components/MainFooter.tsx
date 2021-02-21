@@ -1,10 +1,9 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import {selectedSourceNameSelector, selectedSourceItemTitleSelector, bgTaskState} from '../state';
+import {selectedSourceNameSelector, bgTaskState} from '../state';
 
 export const MainFooter: React.FC<{}> = (): JSX.Element => {
     const selectedSourceName = useRecoilValue(selectedSourceNameSelector);
-    const selectedSourceItemTitle = useRecoilValue(selectedSourceItemTitleSelector);
     const bgTask = useRecoilValue(bgTaskState);
 
     return (
@@ -13,10 +12,6 @@ export const MainFooter: React.FC<{}> = (): JSX.Element => {
                 {
                     selectedSourceName
                     && <span>source: <b>{selectedSourceName}</b></span>
-                }
-                {
-                    selectedSourceItemTitle
-                    && <span> title: <em>{selectedSourceItemTitle}</em></span>
                 }
             </div>
             <div className="bg-task-status">

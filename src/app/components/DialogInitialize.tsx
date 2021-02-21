@@ -9,6 +9,9 @@ type Props = {
     onSuccess: () => void;
     onHide: () => void;
 }
+/**
+ * Initialization dialog to load the list of sources
+ */
 export const DialogInitialize: React.FC<Props> = ({ visible, onSuccess, onHide }): JSX.Element => {
     const [sourceList, setSourceList] = useRecoilState(sourceListState);
 
@@ -31,7 +34,7 @@ export const DialogInitialize: React.FC<Props> = ({ visible, onSuccess, onHide }
         >
             <p>
                 <i className="pi pi-spin pi-spinner" style={{ 'fontSize': '2em' }}></i><br />
-                Please Wait
+                Loading source list ...
             </p>
         </Dialog>
     );
