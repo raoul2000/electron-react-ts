@@ -27,10 +27,11 @@ npm run react:serve:web
 ``` 
 npm run build
 ```
-Once the complete app is built (using `npm run buil`), package the Electron app for Windows platform with :
+- once the complete app is built (using `npm run build`), package the Electron app for Windows platform with :
 ``` 
-npm run build:win
+npm run package:win
 ```
+The output is created in folder `./out` and the application can be tested by running `./out/win-unpacked/my-app.exe`
 
 ## Links
 from :

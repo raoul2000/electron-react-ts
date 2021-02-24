@@ -9,7 +9,7 @@
     "react:serve:web": "cross-env NODE_ENV=development TARGET=web webpack serve",
     "electron:dev": "nodemon",
     "build": "rimraf dist && cross-env NODE_ENV=production webpack --progress --color ",
-    "build:win": "electron-builder build --win --x64"
+    "package:win": "electron-builder build --win --x64"
   },
   "build": {
     "appId": "raoul2000.myapp",
