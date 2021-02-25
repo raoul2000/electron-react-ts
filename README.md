@@ -1,6 +1,12 @@
-# My-App
+# RSS Reader
 
-Electron + React + Typescript = my-app
+Electron + React + Typescript
+
+This application is a very basic RSS reader made just for me to learn and practise.... however, at the end it should produce a usable application. Let's see !
+
+## Overview
+
+![demo](rss-reader.gif)
 
 ## npm scripts
 
