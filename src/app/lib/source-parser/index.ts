@@ -4,11 +4,11 @@ import { nanoid } from 'nanoid'
 
 type CustomFeed = { foo: string };
 
-type MediaContentAttr = { 
-    url:string
+type MediaContentAttr = {
+    url: string
 };
 type MediaContentDescription = {
-    '$' : { type: string },
+    '$': { type: string },
     '_': string
 }
 type MediaContent = {
@@ -17,7 +17,7 @@ type MediaContent = {
 }
 
 type CustomItem = {
-    "media:content":MediaContent,
+    "media:content": MediaContent,
 };
 
 type CustomRssDoc = CustomFeed & RssParser.Output<CustomItem>;
@@ -34,21 +34,21 @@ const getItemId = (item: CustomRssItem): string => item.guid || nanoid();
 const getItemTitle = (item: CustomRssItem): string => item.title || 'no title';
 const getItemPubDate = (item: CustomRssItem): Date | undefined => {
     try {
-        if(item.pubDate) {
+        if (item.pubDate) {
             return new Date(item.pubDate);
         }
-    } catch (error) {}
+    } catch (error) { }
 };
 const getImageLegend = (mediaContent: MediaContent): string | undefined => {
     try {
         return mediaContent['media:description'][0]._;
-    } catch (error) {}
+    } catch (error) { }
 }
 
 const getItemImage = (item: CustomRssItem): ItemImage | void => {
     try {
         if (item['media:content']) {
-            const image:MediaContent = item['media:content'];
+            const image: MediaContent = item['media:content'];
             return {
                 url: image.$.url,
                 legend: getImageLegend(image)
@@ -59,7 +59,7 @@ const getItemImage = (item: CustomRssItem): ItemImage | void => {
 };
 
 
-const normalize = (url: string) => (rss: CustomRssDoc): any => {
+const normalize = (url: string) => (rss: CustomRssDoc): { source: Source, sourceItems: SourceItem[] } => {
     console.log(rss);
     const source: Source = {
         id: nanoid(),
@@ -72,7 +72,7 @@ const normalize = (url: string) => (rss: CustomRssDoc): any => {
         title: getItemTitle(item),
         link: item.link,
         pudDate: getItemPubDate(item),
-        content: item.contentSnippet ,
+        content: item.contentSnippet,
         image: getItemImage(item) || undefined
     }));
 
@@ -81,5 +81,5 @@ const normalize = (url: string) => (rss: CustomRssDoc): any => {
         sourceItems
     };
 }
-export const parse = (url: string): Promise<any> => parser.parseURL(url)
+export const parse = (url: string): Promise<{ source: Source, sourceItems: SourceItem[] }> => parser.parseURL(url)
     .then(normalize(url));

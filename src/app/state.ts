@@ -16,7 +16,10 @@ export const selectedSourceNameSelector = selector<string | undefined>({
     get: ({ get }) => {
         const selectedSourceId = get(selectedSourceIdState);
         const sourceList = get(sourceListState);
-        return sourceList.find(source => source.id === selectedSourceId)?.name;
+        const source =  sourceList.find(source => source.id === selectedSourceId);
+        if(source) {
+            return source.userLabel || source.name;
+        }
     },
 });
 

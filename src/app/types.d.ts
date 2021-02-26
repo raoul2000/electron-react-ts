@@ -1,6 +1,10 @@
 export type Source = {
     id:string;  
     name:string;
+    /**
+     * User defined source name
+     */
+    userLabel?:string;
     url: string;
     description?:string
 }

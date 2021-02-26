@@ -14,8 +14,8 @@ html, body {
 
 .app {
     display: flex;
-
     flex-direction: column;
+
     header {
         height: $header-height;
         padding-left: 1rem;
@@ -152,6 +152,7 @@ html, body {
             }
         }
     } 
+
     footer {
         height: $footer-height;
         border-top: 1px solid #dbdbdb;
@@ -168,6 +169,7 @@ html, body {
             color: #969696;
         }
     }
+
     .dlg {
         width: 50vw;
         &.dlg-initialize p {
@@ -182,6 +184,11 @@ html, body {
         }
     }
 }
+
+.p-confirm-dialog {
+    max-width: 500px;
+}
+
 /* truncate long text */
 .truncate-text {
     white-space: nowrap;

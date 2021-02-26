@@ -8,12 +8,14 @@ import { sourceListState, sourceItemListState } from '../state';
 import { insertSource } from '../lib/store';
 
 type Props = {
+    title:string;
     visible: boolean;
     onHide: () => void;
 }
 
-export const DialogAddSource: React.FC<Props> = ({ visible, onHide }): JSX.Element => {
+export const DialogAddSource: React.FC<Props> = ({ title, visible, onHide }): JSX.Element => {
     const [url, setUrl] = useState<string>('');
+    const [label, setLabel] = useState<string>('');
     const [sourceList, setSourceList] = useRecoilState(sourceListState);
     const [sourceItemList, setSourceItemList] = useRecoilState(sourceItemListState);
 
@@ -22,6 +24,9 @@ export const DialogAddSource: React.FC<Props> = ({ visible, onHide }): JSX.Eleme
         parse(url)
             .then(result => {
                 console.log(result);
+                if(label) {
+                    result.source.userLabel = label;
+                }
                 insertSource(result.source);
                 setSourceList(
                     [...sourceList, result.source]
@@ -49,7 +54,7 @@ export const DialogAddSource: React.FC<Props> = ({ visible, onHide }): JSX.Eleme
 
     return (
         <Dialog
-            header="Add Source"
+            header={title}
             visible={visible}
             onHide={onHide}
             className="dlg dlg-add-source"
@@ -61,6 +66,16 @@ export const DialogAddSource: React.FC<Props> = ({ visible, onHide }): JSX.Eleme
                         <InputText id="source-url" value={url} onChange={(e) => setUrl(e.currentTarget.value)} />
                         <label htmlFor="source-url">source URL</label>
                     </span>
+                </div>
+            </div>
+            <div className="p-fluid p-grid">
+                <div className="p-field p-col">
+                    <span className="p-float-label">
+                        <InputText id="source-name" value={label} onChange={(e) => setLabel(e.currentTarget.value)} />
+                        <label htmlFor="source-url">source Name</label>
+                    </span>
+                        <small id="username1-help" className="p-d-block">
+                        <i className="pi pi-info-circle"></i> leave empty to use the provided name</small>
                 </div>
             </div>
         </Dialog>

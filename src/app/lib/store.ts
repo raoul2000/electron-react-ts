@@ -44,4 +44,24 @@ export const insertSource = (source: Source) => {
             console.log(`insertion done ${result}`)
         })
         .catch(console.error);
-}
+};
+
+export const removeSource = (source: Source) => {
+    getStore().remove({ id: source.id }, {})
+        .then(result => {
+            console.log(`remove done ${result}`)
+        })
+        .catch(console.error);
+};
+
+export const updateSourceLabel = (source: Source, userLabel?: string) => {
+    const options = userLabel
+        ? { '$set': { userLabel } }
+        : { '$unset': { userLabel: true } };
+
+    getStore().update({ id: source.id }, options)
+        .then(result => {
+            console.log(`update done ${result}`)
+        })
+        .catch(console.error);
+};

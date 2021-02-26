@@ -20,6 +20,7 @@ export const MainHeader: React.FC<{}> = (): JSX.Element => {
                 </div>
             </header>
             <DialogAddSource
+                title="Add Source"
                 visible={showAddSourceDialog}
                 onHide={() => setShowAddSourceDialog(false)}
             />
