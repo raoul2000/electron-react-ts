@@ -7,9 +7,7 @@ import { SourceItem } from './SourceItem';
 export const MainContent: React.FC<{}> = (): JSX.Element => {
     return (
         <main >
-            <div className="column-1" >
-                <SourceList />
-            </div>
+            <SourceList />
             <div className="column-2">
                 <SourceItemList />
             </div>

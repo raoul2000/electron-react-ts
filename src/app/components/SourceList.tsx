@@ -6,7 +6,7 @@ import { Toast } from 'primereact/toast';
 import { useRecoilState } from 'recoil';
 import { sourceListState, selectedSourceIdState } from '../state';
 import { removeSource } from '../lib/store';
-import { DialogUpdateSourceLabel } from './DialogUpdateSourceLabel';
+import { DialogUpdateSourceLabel, DialogUpdateSourceLabelProps } from './DialogUpdateSourceLabel';
 /**
  * The list of sources displayed in the left column.
  * Sources displayed here are read from the sourceListState atom
@@ -17,16 +17,12 @@ export const SourceList: React.FC<{}> = (): JSX.Element => {
     const [sourceList, setSourceList] = useRecoilState(sourceListState);
     const [selectedSourceId, setSelectedSourceId] = useRecoilState(selectedSourceIdState);
 
-    const [showUpdateSourceLabelDialog, setShowUpdateSourceLabelDialog] = useState<boolean>(false);
+    const [updateSourceLabelState, setUpdateSourceLabelState] = useState<DialogUpdateSourceLabelProps>({
+        visible: false,
+        source: { id: '', name: '', url: '' },
+        onCancel: () => { },
+        onSubmit: (newLabel) => { }
 
-    const [updateSourceLabelState, setUpdateSourceLabelState] = useState<{
-        show: boolean,
-        label: string,
-        onChange: (newLabel: string) => void
-    }>({
-        show: false,
-        label: '',
-        onChange: (s) => { }
     });
     console.log(updateSourceLabelState);
     const handleSourceSelection = (sourceId: string) => {
@@ -73,64 +69,62 @@ export const SourceList: React.FC<{}> = (): JSX.Element => {
         if (!source) {
             return;
         }
-        const updateSourceLabel = (newLabel: string) => {
-            setSourceList(sourceList.map(source =>
-                source.id === sourceId
-                    ? {
-                        ...source,
-                        userLabel: newLabel
-                    }
-                    : { ...source }
-            ));
-            setUpdateSourceLabelState({
-                ...updateSourceLabelState,
-                show: false
-            });
-        };
-        console.log(source);
         setUpdateSourceLabelState({
-            show: true,
-            label: source.userLabel || '',
-            onChange: updateSourceLabel
+            visible: true,
+            source: { ...source },
+            onSubmit: (newLabel: string) => {
+                setSourceList(sourceList.map(source =>
+                    source.id === sourceId
+                        ? {
+                            ...source,
+                            userLabel: newLabel
+                        }
+                        : { ...source }
+                ));
+                setUpdateSourceLabelState({
+                    ...updateSourceLabelState,
+                    visible: false
+                });
+            },
+            onCancel: () => setUpdateSourceLabelState({
+                ...updateSourceLabelState,
+                visible: false
+            })
         });
     };
     return (
         <>
-            <ScrollPanel style={{ width: '100%', height: '100%' }}>
-                <ul>
-                    {
-                        sourceList.map(source => (
-                            <li
-                                key={source.id}
-                                className={selectedSourceId === source.id ? 'selected' : ''}
-                            >
-                                <div className="source-action">
-                                    <i className="pi pi-pencil" onClick={() => handleRenameSource(source.id)}></i>
-                                    <i className="pi pi-refresh"></i>
-                                    <i className="pi pi-trash" onClick={() => handleDeleteSource(source.id)}></i>
-                                </div>
-                                <div
-                                    className="source-name"
-                                    onClick={() => handleSourceSelection(source.id)}
+            <div className="column-1" >
+                <ScrollPanel style={{ width: '100%', height: '100%' }}>
+                    <ul>
+                        {
+                            sourceList.map(source => (
+                                <li
+                                    key={source.id}
+                                    className={selectedSourceId === source.id ? 'selected' : ''}
                                 >
-                                    {source.userLabel || source.name}
-                                </div>
+                                    <div className="source-action">
+                                        <i className="pi pi-pencil" onClick={() => handleRenameSource(source.id)}></i>
+                                        <i className="pi pi-refresh"></i>
+                                        <i className="pi pi-trash" onClick={() => handleDeleteSource(source.id)}></i>
+                                    </div>
+                                    <div
+                                        className="source-name"
+                                        onClick={() => handleSourceSelection(source.id)}
+                                    >
+                                        {source.userLabel || source.name}
+                                    </div>
 
-                            </li>
-                        ))
-                    }
-                </ul>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                </ScrollPanel>
+            </div>
 
-            </ScrollPanel>
             <Toast ref={toastRef} />
             <DialogUpdateSourceLabel
-                visible={updateSourceLabelState.show}
-                label={updateSourceLabelState.label}
-                onLabelUpdate={updateSourceLabelState.onChange}
-                onHide={() => setUpdateSourceLabelState({
-                    ...updateSourceLabelState,
-                    show: false
-                })}
+                {...updateSourceLabelState}
             />
         </>
     );
