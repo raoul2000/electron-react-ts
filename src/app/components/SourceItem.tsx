@@ -1,8 +1,10 @@
 import React from 'react';
 import { ScrollPanel } from 'primereact/scrollpanel';
 import { useRecoilValue } from 'recoil';
-import { selectedSourceItemState, selectedSourceNameSelector } from '../state';
+import { selectedSourceItemState, selectedSourceNameSelector, selectedSourceSelector } from '../state';
 import { handleOpenExternal } from '../lib/utils';
+import { SourceItemLogo } from './SourceItemLogo';
+
 
 /**
  * Displays details about the selected source item (in center column)
@@ -12,6 +14,7 @@ export const SourceItem: React.FC<{}> = (): JSX.Element => {
 
     const selectedSourceItem = useRecoilValue(selectedSourceItemState);
     const selectedSourceName = useRecoilValue(selectedSourceNameSelector);
+    const selectedSource = useRecoilValue(selectedSourceSelector);
 
     return (
         <ScrollPanel style={{ width: '100%', height: '100%' }}>
@@ -19,13 +22,14 @@ export const SourceItem: React.FC<{}> = (): JSX.Element => {
                 selectedSourceItem
                 &&
                 <article>
-                    {
-                        selectedSourceName
-                        &&
+                    <div className="pre-header">
+                        <SourceItemLogo
+                            logoSrc={selectedSource?.logo?.url}
+                        />
                         <div className="source-name">
-                            {selectedSourceName}
+                            {selectedSourceName || 'no name'}
                         </div>
-                    }
+                    </div>
                     <header>
                         <h1>{selectedSourceItem.title}</h1>
                     </header>
@@ -38,7 +42,8 @@ export const SourceItem: React.FC<{}> = (): JSX.Element => {
                         </figure>
                     }
                     <p>
-                        {selectedSourceItem.content} </p>
+                        {selectedSourceItem.content}
+                    </p>
                     <footer>
                         <p>
                             Posté

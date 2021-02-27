@@ -10,7 +10,7 @@ import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/bootstrap4-light-blue/theme.css'
 
 import '@/app/style.scss'
-
+import '@/app/images/logo.png';
 import App from '@/app/app';
 
 const isEnvProduction = process.env.NODE_ENV === 'production';

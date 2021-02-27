@@ -1,5 +1,5 @@
 import RssParser, { Item, Output } from 'rss-parser';
-import { ItemImage, Source, SourceItem, SourceItemList } from '../../types';
+import { ItemImage, Source, SourceItem, SourceItemList, SourceLogo } from '../../types';
 import { nanoid } from 'nanoid'
 
 type CustomFeed = { foo: string };
@@ -70,13 +70,26 @@ const getItemImage = (item: CustomRssItem): ItemImage | void => {
     return;
 };
 
+const getSourceLogo = (rss: CustomRssDoc): SourceLogo | undefined => {
+    try {
+        if(rss.image && rss.image.url) {
+            return {
+                url: rss.image.url,
+                title: rss.image.title,
+                link: rss.image.link
+            };
+        }
+    } catch (error) { }
+};
+
 
 const normalize = (url: string) => (rss: CustomRssDoc): { source: Source, sourceItems: SourceItem[] } => {
     console.log(rss);
     const source: Source = {
         id: nanoid(),
         url,
-        name: rss.title || 'no name'
+        name: rss.title || 'no name',
+        logo: getSourceLogo(rss)
     };
 
     const sourceItems: SourceItem[] = rss.items.map((item: CustomRssItem) => ({

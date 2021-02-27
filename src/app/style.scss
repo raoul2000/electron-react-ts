@@ -130,10 +130,27 @@ html, body {
             article {
                 padding: 1rem;
 
-                .source-name {
+                .pre-header {
+                    display: flex;
+                    align-items: center;
                     padding-bottom: 1rem;
                     border-bottom: 1px solid #e8e8e8;
                     color: #a2a2a2;
+
+                    .source-item-logo {
+                        width: 50px;
+                        height: auto;
+
+                        img {
+                            width:3rem;
+                            height: auto;
+                        }
+                    };
+
+                    .source-name {
+                        flex-grow: 1;
+                        margin-left: 1rem;
+                    }
                 }
                 figure {
                     text-align: center;

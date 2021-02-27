@@ -23,6 +23,15 @@ export const selectedSourceNameSelector = selector<string | undefined>({
     },
 });
 
+export const selectedSourceSelector = selector<Source | undefined>({
+    key: 'selectedSourceSelector',
+    get: ({ get }) => {
+        const selectedSourceId = get(selectedSourceIdState);
+        const sourceList = get(sourceListState);
+        return sourceList.find(source => source.id === selectedSourceId);
+    },
+});
+
 export const sourceItemListState = atom<SourceItemList[]>({
     key: 'sourceItemListState',
     default: [
