@@ -15,7 +15,11 @@ type MediaContent = {
     '$': MediaContentAttr,
     'media:description': MediaContentDescription[]
 }
-
+type Enclosure = {
+    url:string;
+    type?: string;
+    length: number;
+}
 type CustomItem = {
     "media:content": MediaContent,
 };
@@ -53,6 +57,14 @@ const getItemImage = (item: CustomRssItem): ItemImage | void => {
                 url: image.$.url,
                 legend: getImageLegend(image)
             };
+        } else if( item['enclosure']) {
+            const enclosure: RssParser.Enclosure = item['enclosure'];
+            if( enclosure.type && ['image/jpg'].includes(enclosure.type)) {
+                return {
+                    url: enclosure.url,
+                    legend:''
+                };
+            }
         }
     } catch (error) { }
     return;
