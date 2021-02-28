@@ -15,7 +15,7 @@ export const SourceItem: React.FC<{}> = (): JSX.Element => {
     const selectedSourceItem = useRecoilValue(selectedSourceItemState);
     const selectedSourceName = useRecoilValue(selectedSourceNameSelector);
     const selectedSource = useRecoilValue(selectedSourceSelector);
-
+    // TODO: refactor me !
     return (
         <ScrollPanel style={{ width: '100%', height: '100%' }}>
             {
