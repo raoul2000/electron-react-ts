@@ -120,9 +120,9 @@ export const SourceList: React.FC<{}> = (): JSX.Element => {
                         }
                     </ul>
                 </ScrollPanel>
+                <Toast ref={toastRef} />
             </div>
 
-            <Toast ref={toastRef} />
             <DialogUpdateSourceLabel
                 {...updateSourceLabelState}
             />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
@@ -8,17 +8,21 @@ import { sourceListState, sourceItemListState } from '../state';
 import { insertSource } from '../lib/store';
 
 type Props = {
-    title:string;
     visible: boolean;
     onHide: () => void;
 }
 
-export const DialogAddSource: React.FC<Props> = ({ title, visible, onHide }): JSX.Element => {
+export const DialogAddSource: React.FC<Props> = ({ visible, onHide }): JSX.Element => {
     const [url, setUrl] = useState<string>('');
     const [label, setLabel] = useState<string>('');
     const [sourceList, setSourceList] = useRecoilState(sourceListState);
     const [sourceItemList, setSourceItemList] = useRecoilState(sourceItemListState);
 
+    useEffect(() => {
+        setUrl('');
+        setLabel('');
+    }, [visible]);
+    
     const handleAddSource = () => {
         onHide();
         parse(url)
@@ -54,7 +58,7 @@ export const DialogAddSource: React.FC<Props> = ({ title, visible, onHide }): JS
 
     return (
         <Dialog
-            header={title}
+            header="Add Source"
             visible={visible}
             onHide={onHide}
             className="dlg dlg-add-source"
