@@ -22,9 +22,8 @@ export const SourceList: React.FC<{}> = (): JSX.Element => {
         source: { id: '', name: '', url: '' },
         onCancel: () => { },
         onSubmit: (newLabel) => { }
-
     });
-    console.log(updateSourceLabelState);
+    
     const handleSourceSelection = (sourceId: string) => {
         if (sourceId !== selectedSourceId) {
             setSelectedSourceId(sourceId);
@@ -92,10 +91,19 @@ export const SourceList: React.FC<{}> = (): JSX.Element => {
             })
         });
     };
+    
     return (
         <>
             <div className="column-1" >
                 <ScrollPanel style={{ width: '100%', height: '100%' }}>
+                    {
+                        (!sourceList || sourceList.length === 0)
+                        &&
+                        <div className="no-source">
+                            <div><i className="pi pi-info-circle"></i></div>
+                            <div>no source<br/>available</div>
+                        </div>
+                    }
                     <ul>
                         {
                             sourceList.map(source => (

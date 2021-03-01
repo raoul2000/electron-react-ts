@@ -66,6 +66,24 @@ html, body {
             width:20%;
             min-width: 10rem;
 
+            .no-source {
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                align-content: center;
+                color: #c1c1c1;;
+
+                &>div {
+                    text-align: center;
+                }
+
+                .pi {
+                    font-size: 4rem;
+                }
+            }
+
+
             ul {
                 list-style-type: none;
                 padding: 0;

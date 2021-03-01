@@ -15,6 +15,7 @@ export const MainHeader: React.FC<{}> = (): JSX.Element => {
                     <Button
                         icon="pi pi-plus"
                         className="p-button-rounded"
+                        label="add source"
                         onClick={() => setShowAddSourceDialog(true)}
                     />
                 </div>
