@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import { ScrollPanel } from 'primereact/components/scrollpanel/ScrollPanel';
 import { confirmDialog } from 'primereact/confirmdialog';
 import { Toast } from 'primereact/toast';
 
@@ -23,7 +22,7 @@ export const SourceList: React.FC<{}> = (): JSX.Element => {
         onCancel: () => { },
         onSubmit: (newLabel) => { }
     });
-    
+
     const handleSourceSelection = (sourceId: string) => {
         if (sourceId !== selectedSourceId) {
             setSelectedSourceId(sourceId);
@@ -91,17 +90,17 @@ export const SourceList: React.FC<{}> = (): JSX.Element => {
             })
         });
     };
-    
+
     return (
         <>
             <div className="column-1" >
-                <ScrollPanel style={{ width: '100%', height: '100%' }}>
+                <div className="scrollable">
                     {
                         (!sourceList || sourceList.length === 0)
                         &&
                         <div className="no-source">
                             <div><i className="pi pi-info-circle"></i></div>
-                            <div>no source<br/>available</div>
+                            <div>no source<br />available</div>
                         </div>
                     }
                     <ul>
@@ -127,7 +126,7 @@ export const SourceList: React.FC<{}> = (): JSX.Element => {
                             ))
                         }
                     </ul>
-                </ScrollPanel>
+                </div>
                 <Toast ref={toastRef} />
             </div>
 

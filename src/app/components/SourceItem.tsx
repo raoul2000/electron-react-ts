@@ -1,5 +1,4 @@
 import React from 'react';
-import { ScrollPanel } from 'primereact/scrollpanel';
 import { useRecoilValue } from 'recoil';
 import { selectedSourceItemState, selectedSourceNameSelector, selectedSourceSelector } from '../state';
 import { handleOpenExternal } from '../lib/utils';
@@ -17,7 +16,7 @@ export const SourceItem: React.FC<{}> = (): JSX.Element => {
     const selectedSource = useRecoilValue(selectedSourceSelector);
     // TODO: refactor me !
     return (
-        <ScrollPanel style={{ width: '100%', height: '100%' }}>
+        <div className="scrollable">
             {
                 selectedSourceItem
                 &&
@@ -73,6 +72,6 @@ export const SourceItem: React.FC<{}> = (): JSX.Element => {
                     </footer>
                 </article>
             }
-        </ScrollPanel>
+        </div>
     );
 }

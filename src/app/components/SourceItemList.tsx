@@ -1,4 +1,3 @@
-import { ScrollPanel } from 'primereact/components/scrollpanel/ScrollPanel';
 import React, { useEffect } from 'react';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { SourceItem } from '../types';
@@ -60,7 +59,7 @@ export const SourceItemList: React.FC<{}> = (): JSX.Element => {
     };
 
     return (
-        <ScrollPanel style={{ width: '100%', height: '100%' }}>
+        <div className="scrollable">
             {
                 selectedSourceItemList
                 &&
@@ -81,6 +80,6 @@ export const SourceItemList: React.FC<{}> = (): JSX.Element => {
                     }
                 </ul>
             }
-        </ScrollPanel>
+        </div>
     );
 }
