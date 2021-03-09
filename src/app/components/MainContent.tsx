@@ -1,19 +1,22 @@
-import React from 'react';
+import React from "react";
 
-import { SourceList } from './SourceList';
-import { SourceItemList } from './SourceItemList';
-import { SourceItem } from './SourceItem';
+import { SourceList } from "./SourceList";
+import { SourceItemList } from "./SourceItemList";
+import { SourceItem } from "./SourceItem";
+import { Fixed, ViewPort, LeftResizable, Fill } from "react-spaces";
 
 export const MainContent: React.FC<{}> = (): JSX.Element => {
     return (
-        <main >
-            <SourceList />
-            <div className="column-2">
+        <>
+            <LeftResizable size="20%" scrollable={true} className="source-list">
+                <SourceList />
+            </LeftResizable>
+            <LeftResizable size="20%" scrollable={true} className="source-item-list">
                 <SourceItemList />
-            </div>
-            <div className="column-3">
+            </LeftResizable>
+            <Fill scrollable={true} className="source-item">
                 <SourceItem />
-            </div>
-        </main>
+            </Fill>
+        </>
     );
-}
+};

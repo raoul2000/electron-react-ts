@@ -1,13 +1,11 @@
-import React from 'react';
-import defaultLogoSrc from '../images/logo.png';
+import React from "react";
+import defaultLogoSrc from "../images/logo.png";
 
 type Props = {
     logoSrc?: string;
-}
-export const SourceItemLogo: React.FC<Props> = ({ logoSrc }): JSX.Element =>
+};
+export const SourceItemLogo: React.FC<Props> = ({ logoSrc }): JSX.Element => (
     <div className="source-item-logo">
-        <img
-            src={logoSrc || defaultLogoSrc}
-            alt="logo"
-        />
+        <img src={logoSrc || defaultLogoSrc} alt="logo" />
     </div>
+);
