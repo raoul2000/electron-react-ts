@@ -45,9 +45,12 @@ body {
             cursor: pointer;
             padding: 0.3rem;
 
-            &:hover {
+            &:hover,
+            &.selected {
                 background-color: #e8eaff;
-
+            }
+                
+            &:hover {
                 .source-action .pi {
                     visibility: visible;
                 }
@@ -56,6 +59,7 @@ body {
             div.source-name {
                 color: rgb(10, 43, 43);
             }
+
             .source-action {
                 float: right;
                 padding-left: 4px;
@@ -140,7 +144,8 @@ body {
             text-align: center;
         }
         &.dlg-add-source {
-            min-width: 500px;
+            min-width: 300px;
+            min-width: 600px;
             .p-field {
                 padding: 2rem;
                 padding-bottom: 1rem;
