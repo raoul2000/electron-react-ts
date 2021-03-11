@@ -3,12 +3,20 @@ import { confirmDialog } from "primereact/confirmdialog";
 import { Toast } from "primereact/toast";
 
 import { useRecoilState } from "recoil";
-import { sourceListState, selectedSourceIdState } from "../state";
+import {
+    sourceListState,
+    selectedSourceIdState,
+    sourceItemListState,
+    sourceIdRefreshingState
+} from "../state";
 import { removeSource } from "../lib/store";
 import {
     DialogUpdateSourceLabel,
     DialogUpdateSourceLabelProps,
 } from "./DialogUpdateSourceLabel";
+import { SourceContextActions } from "./SourceContextActions";
+import { parse } from "../lib/source-parser";
+
 /**
  * The list of sources displayed in the left column.
  * Sources displayed here are read from the sourceListState atom
@@ -16,6 +24,11 @@ import {
 export const SourceList: React.FC<{}> = (): JSX.Element => {
     const toastRef = useRef<Toast>(null);
     const [sourceList, setSourceList] = useRecoilState(sourceListState);
+    const [sourceIdRefreshing, setSourceIdRefreshing] = useRecoilState(sourceIdRefreshingState);
+
+    const [sourceItemList, setSourceItemList] = useRecoilState(
+        sourceItemListState
+    );
     const [selectedSourceId, setSelectedSourceId] = useRecoilState(
         selectedSourceIdState
     );
@@ -84,9 +97,9 @@ export const SourceList: React.FC<{}> = (): JSX.Element => {
                     sourceList.map((source) =>
                         source.id === sourceId
                             ? {
-                                ...source,
-                                userLabel: newLabel,
-                            }
+                                  ...source,
+                                  userLabel: newLabel,
+                              }
                             : { ...source }
                     )
                 );
@@ -101,6 +114,35 @@ export const SourceList: React.FC<{}> = (): JSX.Element => {
                     visible: false,
                 }),
         });
+    };
+    const handleRefreshSource = (sourceId: string) => {
+        const source = sourceList.find((source) => source.id === sourceId);
+        if (!source) {
+            return;
+        }
+        console.log(`refreshing source ${sourceId}`);
+        if (source.url) {
+            // next, load and parse the source stream
+            setSourceIdRefreshing([
+                ...sourceIdRefreshing,
+                sourceId
+            ]);
+            setTimeout(() => {
+                
+                parse(source.url).then((result) => {
+                    // update the sourceItemList atom by adding the list of
+                    // items we've just fetched
+                    setSourceItemList([
+                        ...sourceItemList,
+                        {
+                            sourceId: selectedSourceId,
+                            items: result.sourceItems,
+                        },
+                    ]);
+                    setSourceIdRefreshing(sourceIdRefreshing.filter(srcId => srcId !== sourceId));
+                });
+            }, 5000); // TODO: remove - for dev only
+        }
     };
     //TODO: implement refresh source
     return (
@@ -126,21 +168,12 @@ export const SourceList: React.FC<{}> = (): JSX.Element => {
                                 selectedSourceId === source.id ? "selected" : ""
                             }
                         >
-                            <div className="source-action">
-                                <i
-                                    className="pi pi-pencil"
-                                    onClick={() =>
-                                        handleRenameSource(source.id)
-                                    }
-                                ></i>
-                                <i className="pi pi-refresh"></i>
-                                <i
-                                    className="pi pi-trash"
-                                    onClick={() =>
-                                        handleDeleteSource(source.id)
-                                    }
-                                ></i>
-                            </div>
+                            <SourceContextActions
+                                sourceId={source.id}
+                                onRename={handleRenameSource}
+                                onDelete={handleDeleteSource}
+                                onRefresh={handleRefreshSource}
+                            />
                             <div
                                 className="source-name"
                                 onClick={() => handleSourceSelection(source.id)}

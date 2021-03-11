@@ -75,3 +75,8 @@ export const bgTaskState = atom<BgTask>({
         idle: true
     }
 });
+
+export const sourceIdRefreshingState = atom<string[]>({
+    key: 'sourceIdRefreshingState',
+    default: []
+});

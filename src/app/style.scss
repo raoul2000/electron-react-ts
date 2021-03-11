@@ -51,7 +51,7 @@ body {
             }
                 
             &:hover {
-                .source-action .pi {
+                .source-action {
                     visibility: visible;
                 }
             }
@@ -64,10 +64,13 @@ body {
                 float: right;
                 padding-left: 4px;
                 color: #9a9a9a;
+                visibility: hidden;
 
+                &.refreshing {
+                    visibility: visible;
+                }
                 .pi {
                     margin-left: 2px;
-                    visibility: hidden;
                     &:hover {
                         color: blue;
                     }
