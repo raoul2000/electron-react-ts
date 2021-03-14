@@ -127,6 +127,7 @@ export const SourceList: React.FC<{}> = (): JSX.Element => {
                 ...sourceIdRefreshing,
                 sourceId
             ]);
+            console.log('sourceIdRefreshing',sourceIdRefreshing);
             setTimeout(() => {
                 
                 parse(source.url).then((result) => {
@@ -139,7 +140,11 @@ export const SourceList: React.FC<{}> = (): JSX.Element => {
                             items: result.sourceItems,
                         },
                     ]);
-                    setSourceIdRefreshing(sourceIdRefreshing.filter(srcId => srcId !== sourceId));
+                    
+                }).catch( err => {
+                    console.error(err);
+                }).finally(() => {
+                    setSourceIdRefreshing([...sourceIdRefreshing.filter(srcId => srcId !== sourceId)]);
                 });
             }, 5000); // TODO: remove - for dev only
         }
