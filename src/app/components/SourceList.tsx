@@ -116,6 +116,7 @@ export const SourceList: React.FC<{}> = (): JSX.Element => {
         });
     };
     const handleRefreshSource = (sourceId: string) => {
+        console.log('handleRefreshSource', sourceId);
         const source = sourceList.find((source) => source.id === sourceId);
         if (!source) {
             return;
@@ -136,7 +137,7 @@ export const SourceList: React.FC<{}> = (): JSX.Element => {
                     setSourceItemList([
                         ...sourceItemList,
                         {
-                            sourceId: selectedSourceId,
+                            sourceId: sourceId,
                             items: result.sourceItems,
                         },
                     ]);
@@ -144,7 +145,10 @@ export const SourceList: React.FC<{}> = (): JSX.Element => {
                 }).catch( err => {
                     console.error(err);
                 }).finally(() => {
-                    setSourceIdRefreshing([...sourceIdRefreshing.filter(srcId => srcId !== sourceId)]);
+                    console.log('stop refresh sourceId', sourceId);
+                    const updated = [...sourceIdRefreshing.filter(srcId => srcId !== sourceId)];
+                    console.log('updated', updated)
+                    setSourceIdRefreshing(updated);
                 });
             }, 5000); // TODO: remove - for dev only
         }
