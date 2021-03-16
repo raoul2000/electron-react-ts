@@ -4,6 +4,12 @@ Electron + React + Typescript
 
 This application is a very basic RSS reader made just for me to learn and practise.... however, at the end it should produce a usable application. Let's see !
 
+## Features
+- add/remove/rename RSS feed
+- display article images
+- link to complete article opens in default browser
+- 3 resizable columns layout
+
 ## Overview
 
 ![demo](rss-reader.gif)
