@@ -1,6 +1,6 @@
 # RSS Reader
 
-Electron + React + Typescript
+Electron + React + Typescript + Recoil
 
 This application is a very basic RSS reader made just for me to learn and practise.... however, at the end it should produce a usable application. Let's see !
 
